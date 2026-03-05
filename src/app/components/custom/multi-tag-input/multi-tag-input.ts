@@ -1,5 +1,22 @@
 import { Component, input } from '@angular/core';
 
+/**
+ * MultiTagInput — email tag input for collaborator invites.
+ *
+ * @status design-spec
+ *
+ * @input tags — `string[]`, default `[]`. Pre-populated email tags.
+ * @input placeholder — string, default `'example@email.com'`. Shown when empty.
+ *
+ * ## Tokens
+ * `border-input`, `bg-secondary`, `text-foreground`, `text-muted-foreground`
+ *
+ * ## Engineering Handoff
+ * - Implement as `ControlValueAccessor` for reactive form integration.
+ * - Handle Enter/comma keypress to add tags, × button to remove.
+ * - Add email format validation before accepting a tag.
+ * - Emit tag list changes to parent form control.
+ */
 @Component({
   selector: 'app-multi-tag-input',
   standalone: true,

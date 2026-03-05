@@ -1,5 +1,19 @@
 import { Component, input, computed } from '@angular/core';
 
+/**
+ * ProgressSteps — step indicator dots for modal onboarding flows.
+ *
+ * @status production-ready
+ *
+ * @input totalSteps — number, default `4`. Total number of steps.
+ * @input currentStep — number, default `1`. Current active step (1-based).
+ *
+ * ## Tokens
+ * `bg-foreground` (active step), `bg-border` (inactive step)
+ *
+ * ## Engineering Handoff
+ * Production-ready — no wiring needed. Use as-is inside `<hlm-dialog-content>`.
+ */
 @Component({
   selector: 'app-progress-steps',
   standalone: true,

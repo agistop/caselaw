@@ -2,6 +2,30 @@ import { Component, input } from '@angular/core';
 import { HlmButton } from '@spartan-ng/helm/button';
 import { HlmBadge } from '@spartan-ng/helm/badge';
 
+/**
+ * PlanCard — pricing plan card for the plan selection screen.
+ *
+ * @status design-spec
+ *
+ * @input name — string. Plan display name (e.g. "Professional").
+ * @input description — string. One-line plan summary.
+ * @input quota — string. Usage limit text (e.g. "Up to 50 users").
+ * @input price — string. Price display (e.g. "$29" or "Custom").
+ * @input priceSuffix — string. Period label (e.g. "/month").
+ * @input cta — string, default `'Get Started'`. Button label.
+ * @input ctaVariant — `'default' | 'outline'`, default `'outline'`. Button style.
+ * @input popular — boolean, default `false`. Shows "Most Popular" badge.
+ * @input features — `string[]`, default `[]`. Checklist of plan features.
+ *
+ * ## Tokens
+ * `bg-card`, `border-border`, `text-foreground`, `text-muted-foreground`,
+ * `bg-success/10`, `text-success` (popular badge), `border-success/20`
+ *
+ * ## Engineering Handoff
+ * - Wire CTA button to Stripe checkout or contact sales flow.
+ * - Prices and quotas are placeholder values — replace with real pricing from API.
+ * - Consider adding a `recommended` input to auto-select the popular plan.
+ */
 @Component({
   selector: 'app-plan-card',
   standalone: true,

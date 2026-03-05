@@ -42,6 +42,8 @@ docs/
 │   ├── typography.md             # Type scale, weights, families
 │   └── spacing-radii-shadows.md  # Spacing, border-radius, elevation
 ├── flows/onboarding/
+│   ├── index.md                  # Top-level onboarding overview + flow diagram gaps
+│   ├── onboarding-flow-diagram.pdf # Official flow diagram (source of truth)
 │   ├── law-firm/index.md         # 9-screen law firm flow
 │   └── student/index.md          # 8-screen student flow
 ├── components/
@@ -70,12 +72,14 @@ src/
 │   │       ├── onboarding-shell/
 │   │       ├── type-selection-card/
 │   │       ├── progress-steps/
+│   │       ├── modal-shell/      # Static modal wrapper (→ HlmDialog in production)
 │   │       ├── plan-card/
 │   │       ├── multi-tag-input/
 │   │       ├── social-auth-button/
 │   │       ├── legal-consent-row/
 │   │       └── invite-link-copy/
 │   └── screens/
+│       ├── components-gallery/   # Design System showcase (landing page)
 │       └── onboarding/
 │           ├── law-firm/         # 9 screen components
 │           └── student/          # 8 screen components
@@ -115,7 +119,7 @@ import { BrnDialog } from '@spartan-ng/brain/dialog';
 
 ### Typography
 - Scale: `text-xs` (12px) → `text-3xl` (30px)
-- Families: system sans-serif (UI default), `font-kalice` (serif display, headings/wordmark)
+- Families: system sans-serif (UI default), `font-kalice` (Kalice Trial Medium, serif display, headings/wordmark)
 - Weights: `font-normal` (400), `font-medium` (500), `font-semibold` (600), `font-bold` (700)
 
 ### Spacing & Radius
@@ -133,7 +137,9 @@ pnpm start          # or: npx ng serve
 pnpm build          # or: npx ng build
 ```
 
-Navigate to `http://localhost:4200` for the screen index. Each screen is accessible at:
+Navigate to `http://localhost:4200` for the Design System showcase (landing page). Key routes:
+- `/` — Design System showcase (tokens, components, engineering handoff notes)
+- `/screens` — Screen index with links to all onboarding screens
 - `/law-firm/0-type-selection` through `/law-firm/8-choose-plan`
 - `/student/0-type-selection` through `/student/7-choose-plan`
 
@@ -151,6 +157,8 @@ Navigate to `http://localhost:4200` for the screen index. Each screen is accessi
 - `date-select`: separate component with calendar popover (not a `select` variant)
 - Plan prices/quotas: placeholder values pending product confirmation
 - Modal screens: plain overlay backdrop (`bg-black/50`), no fake dashboard
+- Modal screens use `modal-shell` component (static design spec); production should migrate to `HlmDialog` + `BrnDialog`
+- Design System showcase is the landing page at `/`; old screen index moved to `/screens`
 
 ## Open Flags
 
@@ -158,5 +166,7 @@ Navigate to `http://localhost:4200` for the screen index. Each screen is accessi
 - `font-sans` identity — Inter or custom?
 - Student code trailing icon — deferred
 - Line heights — use Tailwind defaults
-- Kalice font files — not yet installed in `src/assets/fonts/`
+- ~~Kalice font files~~ — installed in `public/fonts/` (Regular + Medium + MediumItalic)
 - Storybook — deferred (not set up)
+- **Unimplemented flows:** Company, Student Body, Sole Lawyer/Researcher, and Other are documented in `docs/product/product-context.md` and `docs/flows/onboarding/index.md` but have no screens or components yet
+- **Unimplemented shared steps:** Email verification, Stripe checkout, separate billing address, and account error states are in the official flow diagram but not yet designed or implemented — see `docs/flows/onboarding/index.md`

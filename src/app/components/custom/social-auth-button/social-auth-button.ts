@@ -1,6 +1,21 @@
 import { Component, input } from '@angular/core';
 import { HlmButton } from '@spartan-ng/helm/button';
 
+/**
+ * SocialAuthButton — OAuth provider button (Google / Microsoft).
+ *
+ * @status design-spec
+ *
+ * @input provider — `'google' | 'microsoft'`, default `'google'`. Selects icon and label.
+ *
+ * ## Tokens
+ * `border-input`, `text-foreground`
+ *
+ * ## Engineering Handoff
+ * - Wire click handler to initiate OAuth redirect (Google or Microsoft).
+ * - Add loading spinner state during redirect.
+ * - Handle OAuth callback errors with a toast or inline message.
+ */
 @Component({
   selector: 'app-social-auth-button',
   standalone: true,

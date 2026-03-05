@@ -1,7 +1,40 @@
 @import "tailwindcss";
-@import "tw-animate-css";
+@import "@spartan-ng/brain/hlm-tailwind-preset.css";
 
-@source "../src/app";
+@source "./app";
+
+@font-face {
+  font-family: "Kalice";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src:
+    url("/fonts/Kalice-Trial-Regular.woff2") format("woff2"),
+    url("/fonts/Kalice-Trial-Regular.woff") format("woff"),
+    url("/fonts/Kalice-Trial-Regular.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Kalice";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src:
+    url("/fonts/Kalice-Trial-Medium.woff2") format("woff2"),
+    url("/fonts/Kalice-Trial-Medium.woff") format("woff"),
+    url("/fonts/Kalice-Trial-Medium.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Kalice";
+  font-style: italic;
+  font-weight: 500;
+  font-display: swap;
+  src:
+    url("/fonts/Kalice-Trial-MediumItalic.woff2") format("woff2"),
+    url("/fonts/Kalice-Trial-MediumItalic.woff") format("woff"),
+    url("/fonts/Kalice-Trial-MediumItalic.ttf") format("truetype");
+}
 
 @layer base {
   :root {

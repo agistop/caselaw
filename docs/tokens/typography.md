@@ -9,10 +9,10 @@ Extracted from onboarding flow screenshots. All values are visual estimates unle
 | Token | Value | Usage |
 |-------|-------|-------|
 | `font-sans` | System / Inter (TBD) | All UI text: labels, inputs, buttons, body, links |
-| `font-kalice` | Kalice (serif display) | Wordmark "CaseLaw"; page-level headings (e.g. "Are you an individual…") |
+| `font-kalice` | Kalice Trial Medium (serif display, weight 500) | Wordmark "CaseLaw"; page-level headings (e.g. "Are you an individual…") |
 
 > `font-kalice` is a custom display typeface. It should not be used for body copy or UI elements.
-> Confirm the exact font file name and licensing with the design team.
+> Font files installed at `public/fonts/` — Regular (400), Medium (500), Medium Italic (500 italic).
 
 ---
 
@@ -49,7 +49,7 @@ Extracted from onboarding flow screenshots. All values are visual estimates unle
 
 | Token | Value | Usage |
 |-------|-------|-------|
-| `italic` | — | `font-kalice` headings are rendered in italic (the typeface is inherently italic) |
+| `italic` | — | `font-kalice` headings; Kalice Medium Italic is a distinct font file |
 
 ---
 
@@ -60,6 +60,10 @@ These are recurring text treatments seen across the onboarding flow:
 | Pattern name | Tokens | Example usage |
 |--------------|--------|---------------|
 | Page heading | `text-3xl font-kalice italic` | "Are you an individual or a group?" |
+| Kalice title | `text-2xl font-kalice` | Display heading (24px, normal style) |
+| Kalice body italic | `text-base font-kalice italic` | Serif body italic (16px) |
+| Kalice body | `text-base font-kalice` | Serif body normal (16px) |
+| Kalice small italic | `text-sm font-kalice italic` | Serif small italic (14px) |
 | Modal title | `text-2xl font-semibold font-sans` | "Add collaborators", "Law firm details" |
 | Section heading | `text-lg font-semibold font-sans` | Modal step headings |
 | Body | `text-sm font-normal font-sans` | Option item labels, body copy |
@@ -83,7 +87,13 @@ The custom `font-kalice` family is registered in `src/styles.css`:
 }
 ```
 
-Font files are located at `src/assets/fonts/kalice/` with `@font-face` declarations in `src/styles.css`.
+Font files are located at `public/fonts/` with `@font-face` declarations in `src/styles.css`:
+
+- `Kalice-Trial-Regular` — weight 400, normal style
+- `Kalice-Trial-Medium` — weight 500, normal style
+- `Kalice-Trial-MediumItalic` — weight 500, italic style
+
+Formats: `.woff2`, `.woff`, `.ttf` (with `font-display: swap`).
 
 ### Template usage
 
@@ -106,6 +116,6 @@ Font files are located at `src/assets/fonts/kalice/` with `@font-face` declarati
 
 - [ ] Line height values — not extractable from screenshots; using Tailwind v4 defaults
 - [ ] `font-sans` exact font name — is it Inter, or a custom typeface?
-- [ ] `font-kalice` exact weight — does it ship in semibold or only regular/italic?
+- [x] ~~`font-kalice` exact weight~~ — **Resolved**: ships as Regular (400) and Medium (500) + Medium Italic
 - [ ] `font-medium` (500) — confirm it appears as a distinct step vs. `font-normal` / `font-semibold`
 - [ ] `text-2xs` (10px) — not observed in onboarding; confirm it exists in the scale

@@ -22,7 +22,19 @@ export const routes: Routes = [
   { path: 'student/6-terms-privacy', loadComponent: () => import('./screens/onboarding/student/terms-privacy').then(m => m.StTermsPrivacy) },
   { path: 'student/7-choose-plan', loadComponent: () => import('./screens/onboarding/student/choose-plan').then(m => m.StChoosePlan) },
 
-  // Default: index page
-  { path: '', loadComponent: () => import('./screens/onboarding/index').then(m => m.ScreenIndex) },
+  // Combined comparison screens
+  { path: 'compare/type-selection', loadComponent: () => import('./screens/onboarding/combined/type-selection').then(m => m.CompareTypeSelection) },
+  { path: 'compare/persona', loadComponent: () => import('./screens/onboarding/combined/persona').then(m => m.ComparePersona) },
+  { path: 'compare/create-account', loadComponent: () => import('./screens/onboarding/combined/create-account').then(m => m.CompareCreateAccount) },
+  { path: 'compare/details', loadComponent: () => import('./screens/onboarding/combined/details').then(m => m.CompareDetails) },
+  { path: 'compare/collaborators', loadComponent: () => import('./screens/onboarding/combined/collaborators').then(m => m.CompareCollaborators) },
+  { path: 'compare/terms-privacy', loadComponent: () => import('./screens/onboarding/combined/terms-privacy').then(m => m.CompareTermsPrivacy) },
+  { path: 'compare/choose-plan', loadComponent: () => import('./screens/onboarding/combined/choose-plan').then(m => m.CompareChoosePlan) },
+
+  // Screen index (old landing page)
+  { path: 'screens', loadComponent: () => import('./screens/onboarding/index').then(m => m.ScreenIndex) },
+
+  // Default: Design System showcase
+  { path: '', loadComponent: () => import('./screens/components-gallery/components-gallery').then(m => m.ComponentsGallery) },
   { path: '**', redirectTo: '' },
 ];

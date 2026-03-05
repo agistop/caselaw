@@ -12,6 +12,18 @@ import { RouterLink } from '@angular/router';
         <p class="mt-2 text-sm text-muted-foreground">Onboarding screen index — click to preview each screen</p>
 
         <div class="mt-8 space-y-8">
+          <!-- Design System -->
+          <div>
+            <h2 class="text-lg font-semibold text-foreground">Design System</h2>
+            <ul class="mt-3 space-y-1">
+              <li>
+                <a routerLink="/" class="text-sm text-primary underline-offset-4 hover:underline">
+                  Design System Showcase — all tokens, compositions, and visual states
+                </a>
+              </li>
+            </ul>
+          </div>
+
           <!-- Law Firm Flow -->
           <div>
             <h2 class="text-lg font-semibold text-foreground">Law Firm Flow</h2>

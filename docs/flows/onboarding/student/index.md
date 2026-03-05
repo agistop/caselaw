@@ -1,5 +1,10 @@
 # Onboarding Flow — Student
 
+## Diagram Reference
+
+> **Official flow diagram:** [`onboarding-flow-diagram.pdf`](../onboarding-flow-diagram.pdf)
+> **Top-level overview:** [`docs/flows/onboarding/index.md`](../index.md)
+
 ## Overview
 
 8-screen flow. Structurally identical to the Law Firm flow. Differences are limited to:
@@ -9,6 +14,8 @@
 - Persona dropdown options
 
 All UI components are shared. This flow is a content variant, not a structural variant.
+
+The official flow diagram reveals additional shared steps not yet implemented — email verification, Stripe checkout, and a homepage exit point. These are documented below as gaps.
 
 ---
 
@@ -36,6 +43,10 @@ All UI components are shared. This flow is a content variant, not a structural v
     ↓ Continue
 [2] Create Account
     ↓ Continue (or OAuth)
+    ↓ ❌ Validation failure → error states (NOT IMPLEMENTED — see Open Flags)
+    ↓ ✅ Success
+[*] Email Verification (NOT IMPLEMENTED)
+    ↓ verification email sent → user clicks link → returns to platform
 [3] Student Details Modal (step 1/4)
     ↓ Continue
 [4] Add Collaborators — empty (step 2/4)
@@ -45,8 +56,13 @@ All UI components are shared. This flow is a content variant, not a structural v
 [6] Terms & Privacy (step 3/4)
     ↓ Accept
 [7] Choose Your Plan (step 4/4)
-    ↓ Select plan → app entry
+    ↓ Select plan → "finish"
+[*] Stripe Checkout Page (NOT IMPLEMENTED)
+    ↓ user enters payment info → "pay & subscribe"
+[*] CaseLaw Homepage (flow exit point)
 ```
+
+> Steps marked `[*]` are documented in the official flow diagram but have no implemented screens yet.
 
 ---
 
@@ -82,7 +98,7 @@ All UI components are shared. This flow is a content variant, not a structural v
 
 ### Screen 3 — Student Details Modal
 
-- `onboarding-modal` — progress-steps header; step 1 `active`
+- `modal-shell` — progress-steps header; step 1 `active`
 - `input` — Account name (`modifier="full-width"`)
 - `input` — Home address (`modifier="full-width"`)
 - `select` (date-select) — "When do you graduate?" — placeholder "Select date"; chevron icon; **flagged: may be `select` variant or separate `date-select` component**
@@ -145,7 +161,14 @@ Source files: `src/app/screens/onboarding/student/`
 
 ## Open Flags
 
+### Existing
 - [ ] Student code field trailing icon — what icon? (info, scan, QR, eye?) Needs design clarification
 - [ ] `date-select` — separate component or `select` variant? Needs interaction spec (calendar popover vs. scrollable list)
 - [ ] Graduation date options — are these year values, semester/year strings, or a date picker?
 - [ ] Student plan quotas (100/1k/10k/Unlimited) — confirm values with product
+
+### From Flow Diagram (gaps vs current implementation)
+- [ ] **Account creation error states** — diagram shows validation failure branch with "??" error messages (invalid email, password requirements). No error-state screens exist. Need: error message copy, inline vs toast display, retry behavior.
+- [ ] **Email verification sub-flow** — diagram shows: verification sent → user clicks link → returns to platform. Need: "check your email" screen design, resend option, expiry behavior, return-to-app screen.
+- [ ] **Stripe checkout page** — diagram shows a separate checkout page after plan selection where user enters payment info. Need: Stripe-hosted vs embedded, page design, what CaseLaw chrome surrounds it.
+- [ ] **Homepage exit** — diagram ends at "CaseLaw Homepage displays". Current flow ends at choose-plan with no defined exit transition.

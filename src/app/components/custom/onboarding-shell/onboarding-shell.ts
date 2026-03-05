@@ -1,5 +1,19 @@
 import { Component } from '@angular/core';
 
+/**
+ * OnboardingShell — full-page layout wrapper for pre-auth onboarding screens.
+ *
+ * @status design-spec
+ *
+ * No inputs — content is projected via `<ng-content>`.
+ *
+ * ## Tokens
+ * `bg-background`, `text-foreground`, `text-muted-foreground`, `font-kalice`
+ *
+ * ## Engineering Handoff
+ * - Wire the "Log in ›" link with `routerLink` to the login route.
+ * - Consider extracting the CaseLaw wordmark into a shared component.
+ */
 @Component({
   selector: 'app-onboarding-shell',
   standalone: true,

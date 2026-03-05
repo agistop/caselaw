@@ -38,6 +38,34 @@ Maps each CaseLaw UI need to its spartan.ng implementation. Components fall into
 | `legal-consent-row` | `src/app/components/custom/legal-consent-row/` | `hlm-switch` + text | Toggle + label row; switch overridden to green active state |
 | `invite-link-copy` | `src/app/components/custom/invite-link-copy/` | `hlmInput` + `hlmBtn` | Read-only URL input + Copy button |
 | `plan-card` | `src/app/components/custom/plan-card/` | Pure HTML + Tailwind + `hlmBtn` + `hlmBadge` | Full plan card: name, price, features, CTA, optional "Most Popular" badge |
+| `modal-shell` | `src/app/components/custom/modal-shell/` | `progress-steps` + Pure HTML + Tailwind | Static modal wrapper: backdrop, centered card, progress dots, body + footer content slots |
+
+---
+
+## Engineering Handoff Notes
+
+### ModalShell → HlmDialog migration
+
+`modal-shell` is a **static design-spec component** — it renders the modal permanently "open" with no open/close state, focus trapping, or keyboard handling. When implementing the real flow, replace it with spartan's dialog system:
+
+| Design Spec (current) | Production Implementation |
+|---|---|
+| `<app-modal-shell>` | `<hlm-dialog>` + `<hlm-dialog-content>` |
+| `<div class="fixed inset-0 bg-black/50">` backdrop | `<hlm-dialog-overlay>` (automatic via `BrnDialog`) |
+| `<ng-content />` body slot | Content inside `<hlm-dialog-content>` |
+| `<ng-content select="[footer]" />` | `<hlm-dialog-footer>` |
+| Heading `<h2>` | `<hlm-dialog-header>` + `<hlm-dialog-title>` |
+| `[currentStep]` / `[totalSteps]` inputs | Same — embed `<app-progress-steps>` inside dialog content |
+
+**Imports needed:**
+- Brain: `BrnDialog`, `BrnDialogTrigger`, `BrnDialogRef` from `@spartan-ng/brain/dialog`
+- Helm: `HlmDialog`, `HlmDialogContent`, `HlmDialogOverlay`, `HlmDialogHeader`, `HlmDialogTitle`, `HlmDialogFooter` from `@spartan-ng/helm/dialog`
+
+The helm dialog components are already scaffolded at `src/app/components/helm/dialog/`.
+
+### Select dropdowns
+
+The modal screens use hand-rolled select divs (styled `<div>` with chevron icon) rather than `HlmSelect` + `BrnSelect`. This is intentional for the design spec — `BrnSelect` requires functional wiring (open/close, option selection, value binding). When implementing, replace the static select divs with the full `brn-select` + `hlm-select-*` component set from `@spartan-ng/brain/select` + `@spartan-ng/helm/select`.
 
 ---
 
@@ -53,10 +81,10 @@ All screens are standalone Angular components in `src/app/screens/onboarding/`.
 | 1 — Persona Closed | `LfPersonaClosed` | `law-firm/persona-closed.ts` | `onboarding-shell`, `hlmLabel`, `hlmBtn` |
 | 2 — Persona Open | `LfPersonaOpen` | `law-firm/persona-open.ts` | `onboarding-shell`, `hlmLabel`, `hlmBtn` |
 | 3 — Create Account | `LfCreateAccount` | `law-firm/create-account.ts` | `onboarding-shell`, `hlmInput`, `hlmBtn`, `social-auth-button` |
-| 4 — Firm Details | `LfFirmDetails` | `law-firm/firm-details.ts` | `progress-steps`, `hlmInput`, `hlmLabel`, `hlmBtn` |
-| 5 — Collaborators Empty | `LfCollaboratorsEmpty` | `law-firm/collaborators-empty.ts` | `progress-steps`, `multi-tag-input`, `legal-consent-row`, `invite-link-copy` |
+| 4 — Firm Details | `LfFirmDetails` | `law-firm/firm-details.ts` | `modal-shell`, `hlmInput`, `hlmLabel`, `hlmBtn` |
+| 5 — Collaborators Empty | `LfCollaboratorsEmpty` | `law-firm/collaborators-empty.ts` | `modal-shell`, `multi-tag-input`, `legal-consent-row`, `invite-link-copy` |
 | 6 — Collaborators Filled | `LfCollaboratorsFilled` | `law-firm/collaborators-filled.ts` | Same as 5, with filled tag input |
-| 7 — Terms & Privacy | `LfTermsPrivacy` | `law-firm/terms-privacy.ts` | `progress-steps`, `legal-consent-row`, `hlmBtn` |
+| 7 — Terms & Privacy | `LfTermsPrivacy` | `law-firm/terms-privacy.ts` | `modal-shell`, `legal-consent-row`, `hlmBtn` |
 | 8 — Choose Plan | `LfChoosePlan` | `law-firm/choose-plan.ts` | `progress-steps`, `plan-card` × 4, `hlmBtn` |
 
 ### Student Flow (8 screens)
@@ -76,10 +104,11 @@ All screens are standalone Angular components in `src/app/screens/onboarding/`.
 
 ## Routing
 
-All screens are lazy-loaded via `src/app/app.routes.ts`. The index page at `/` lists all screens with navigation links.
+All screens are lazy-loaded via `src/app/app.routes.ts`.
 
-| Route Pattern | Example |
-|---------------|---------|
-| `/law-firm/{N}-{name}` | `/law-firm/3-create-account` |
-| `/student/{N}-{name}` | `/student/2-create-account` |
-| `/` | Screen index (all links) |
+| Route Pattern | Example | Description |
+|---------------|---------|-------------|
+| `/` | `http://localhost:4200/` | Design System showcase (tokens, components, engineering handoff notes) |
+| `/screens` | `http://localhost:4200/screens` | Screen index with links to all onboarding screens |
+| `/law-firm/{N}-{name}` | `/law-firm/3-create-account` | Law Firm onboarding flow screens |
+| `/student/{N}-{name}` | `/student/2-create-account` | Student onboarding flow screens |

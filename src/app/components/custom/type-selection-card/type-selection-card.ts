@@ -1,5 +1,23 @@
 import { Component, input } from '@angular/core';
 
+/**
+ * TypeSelectionCard — account type picker card (individual vs group).
+ *
+ * @status design-spec
+ *
+ * @input type — `'individual' | 'group'`, default `'individual'`. Controls placeholder illustration.
+ * @input title — string, display name (e.g. "Law Firm").
+ * @input subtitle — string, supporting text (e.g. "For teams and organizations").
+ * @input selected — boolean, default `false`. Toggles `ring-2 ring-ring` selected state.
+ *
+ * ## Tokens
+ * `bg-card`, `border-border`, `ring-ring`, `text-foreground`, `text-muted-foreground`
+ *
+ * ## Engineering Handoff
+ * - Wire click handler to toggle selection (only one card active at a time).
+ * - Replace placeholder SVG illustrations with final assets from design.
+ * - Emit selected type to parent for routing to the correct persona screen.
+ */
 @Component({
   selector: 'app-type-selection-card',
   standalone: true,
